@@ -1,6 +1,6 @@
 # UniVerse
 
-A Java-based Android communication app built for BAUST Khulna, allowing students and teachers to create profiles, discover each other, exchange real-time messages, and receive live notices from an administrator.
+A Java-based Android communication app, allowing students and teachers to create profiles, discover each other, exchange real-time messages, and receive live notices from an administrator.
 
 Built in **Android Studio with Java**, using **Firebase Realtime Database** for real-time chat, notices, and cloud-synchronized profile data.
 
