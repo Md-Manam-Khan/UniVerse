@@ -4,15 +4,14 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
-public class AdminLoginActivity extends BaseActivity 
+public class AdminLoginActivity extends BaseActivity
 {
     private EditText adminNameEditText;
     private EditText adminPasswordEditText;
     private LocalDataManager dataManager;
     private FirebaseManager firebaseManager;
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_login);
@@ -30,15 +29,15 @@ public class AdminLoginActivity extends BaseActivity
                 public void onResult(String cloudName, String cloudPassword) {
                     enterButton.setEnabled(true);
                     boolean matches;
-                    if (cloudName != null && cloudPassword != null) 
+                    if (cloudName != null && cloudPassword != null)
                     {
                         dataManager.updateAdminCredentials(cloudName, cloudPassword);
                         matches = cloudName.equals(name) && cloudPassword.equals(password);
-                    } 
-                    else 
+                    }
+                    else
                     {
                         matches = dataManager.validateAdminLogin(name, password);
-                        if (matches) 
+                        if (matches)
                         {
                             firebaseManager.updateAdminCredentials(name, password);
                         }
@@ -46,7 +45,7 @@ public class AdminLoginActivity extends BaseActivity
                     finishLogin(matches);
                 }
                 @Override
-                public void onError() 
+                public void onError()
                 {
                     enterButton.setEnabled(true);
                     finishLogin(dataManager.validateAdminLogin(name, password));
@@ -54,15 +53,15 @@ public class AdminLoginActivity extends BaseActivity
             });
         });
     }
-    private void finishLogin(boolean success) 
+    private void finishLogin(boolean success)
     {
-        if (success) 
+        if (success)
         {
             Intent intent = new Intent(AdminLoginActivity.this, AdminDashboardActivity.class);
             startActivity(intent);
             finish();
-        } 
-        else 
+        }
+        else
         {
             Toast.makeText(AdminLoginActivity.this, "Try again", Toast.LENGTH_SHORT).show();
         }

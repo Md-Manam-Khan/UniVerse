@@ -6,11 +6,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-public class StudentSearchActivity extends BaseActivity 
+public class StudentSearchActivity extends BaseActivity
 {
     private Spinner departmentSpinner;
     private Spinner semesterSpinner;
@@ -22,13 +21,13 @@ public class StudentSearchActivity extends BaseActivity
     private String currentUserName;
     private String currentUserProfileKey;
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_search);
         currentUserName = getIntent().getStringExtra("currentUserName");
         currentUserProfileKey = getIntent().getStringExtra("currentUserProfileKey");
-        if (currentUserName == null) 
+        if (currentUserName == null)
         {
             currentUserName = "Student";
         }
@@ -61,7 +60,7 @@ public class StudentSearchActivity extends BaseActivity
             startActivity(intent);
         });
     }
-    private void searchStudents() 
+    private void searchStudents()
     {
         firebaseManager.fetchAllProfiles(new FirebaseManager.ProfilesListener() {
             @Override
@@ -70,23 +69,23 @@ public class StudentSearchActivity extends BaseActivity
                 runSearch();
             }
             @Override
-            public void onError() 
+            public void onError()
             {
                 runSearch();
             }
         });
     }
-    private void runSearch() 
+    private void runSearch()
     {
         String department = departmentSpinner.getSelectedItem().toString();
         String semester = semesterSpinner.getSelectedItem().toString();
         studentList = dataManager.getStudentsByDeptAndSemester(department, semester);
         List<String> names = new ArrayList<>();
         List<Map<String, String>> filteredList = new ArrayList<>();
-        for (Map<String, String> student : studentList) 
+        for (Map<String, String> student : studentList)
         {
             String studentKey = student.get("key");
-            if (currentUserProfileKey == null || !studentKey.equals(currentUserProfileKey)) 
+            if (currentUserProfileKey == null || !studentKey.equals(currentUserProfileKey))
             {
                 filteredList.add(student);
                 names.add(student.get("name"));
@@ -96,7 +95,7 @@ public class StudentSearchActivity extends BaseActivity
         adapter.clear();
         adapter.addAll(names);
         adapter.notifyDataSetChanged();
-        if (names.isEmpty()) 
+        if (names.isEmpty())
         {
             Toast.makeText(this, "No students found", Toast.LENGTH_SHORT).show();
         }

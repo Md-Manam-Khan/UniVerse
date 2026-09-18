@@ -9,11 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-public class AdminDashboardActivity extends BaseActivity 
+public class AdminDashboardActivity extends BaseActivity
 {
     private EditText messageEditText;
     private LinearLayout addInfoLayout;
@@ -26,7 +25,7 @@ public class AdminDashboardActivity extends BaseActivity
     private LocalDataManager dataManager;
     private FirebaseManager firebaseManager;
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_dashboard);
@@ -59,14 +58,14 @@ public class AdminDashboardActivity extends BaseActivity
         userTypeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
-                if (position == 0) 
+                if (position == 0)
                 {
                     ArrayAdapter<String> designationAdapter = new ArrayAdapter<>(AdminDashboardActivity.this,
                             android.R.layout.simple_spinner_item,
                             new String[]{"Professor", "Associate Professor", "Lecturer"});
                     designationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     designationOrSemesterSpinner.setAdapter(designationAdapter);
-                } 
+                }
                 else
                 {
                     ArrayAdapter<String> semesterAdapter = new ArrayAdapter<>(AdminDashboardActivity.this,
@@ -88,7 +87,7 @@ public class AdminDashboardActivity extends BaseActivity
         });
         sendButton.setOnClickListener(v -> {
             String message = messageEditText.getText().toString().trim();
-            if (message.isEmpty()) 
+            if (message.isEmpty())
             {
                 Toast.makeText(this, "Please enter a message", Toast.LENGTH_SHORT).show();
                 return;
@@ -119,7 +118,7 @@ public class AdminDashboardActivity extends BaseActivity
             String name = nameEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
             String story = storyEditText.getText().toString().trim();
-            if (!name.isEmpty() && !password.isEmpty() && !story.isEmpty()) 
+            if (!name.isEmpty() && !password.isEmpty() && !story.isEmpty())
             {
                 String designation = userType.equals("Teacher") ? designationOrSemester : "";
                 String semester = userType.equals("Student") ? designationOrSemester : "";
@@ -130,7 +129,7 @@ public class AdminDashboardActivity extends BaseActivity
                 passwordEditText.setText("");
                 storyEditText.setText("");
                 Toast.makeText(this, "Profile added!", Toast.LENGTH_SHORT).show();
-            } 
+            }
             else
             {
                 Toast.makeText(this, "Please fill name, password and bio", Toast.LENGTH_SHORT).show();

@@ -22,7 +22,7 @@ public class LocalDataManager {
     private static final String KEY_ADMIN_PASSWORD = "admin_password";
     private static final String DEFAULT_ADMIN_NAME = "adminbaustk";
     private static final String DEFAULT_ADMIN_PASSWORD = "admin123";
-    
+
     private SharedPreferences prefs;
     private Context context;
 
@@ -41,29 +41,29 @@ public class LocalDataManager {
     public boolean validateAdminLogin(String name, String password) {
         String storedName = prefs.getString(KEY_ADMIN_NAME, null);
         String storedPassword = prefs.getString(KEY_ADMIN_PASSWORD, null);
-        
+
         if (storedName != null && storedPassword != null) {
             return storedName.equals(name) && storedPassword.equals(password);
         }
-        
+
         return DEFAULT_ADMIN_NAME.equals(name) && DEFAULT_ADMIN_PASSWORD.equals(password);
     }
-    
+
     public void updateAdminCredentials(String name, String password) {
         prefs.edit()
             .putString(KEY_ADMIN_NAME, name)
             .putString(KEY_ADMIN_PASSWORD, password)
             .apply();
     }
-    
+
     public String getAdminName() {
         return prefs.getString(KEY_ADMIN_NAME, DEFAULT_ADMIN_NAME);
     }
-    
+
     public String getAdminPassword() {
         return prefs.getString(KEY_ADMIN_PASSWORD, DEFAULT_ADMIN_PASSWORD);
     }
-    
+
     public void saveNotice(String message, String date, long timestamp) {
         try {
             JSONArray notices = getNoticesArray();
@@ -79,17 +79,17 @@ public class LocalDataManager {
             e.printStackTrace();
         }
     }
-    
+
     public String getLatestNotice() {
         try {
             JSONArray notices = getNoticesArray();
             if (notices.length() == 0) {
                 return "No notices yet.";
             }
-            
+
             JSONObject latest = null;
             long latestTimestamp = Long.MIN_VALUE;
-            
+
             for (int i = 0; i < notices.length(); i++) {
                 JSONObject notice = notices.getJSONObject(i);
                 long timestamp = notice.optLong("timestamp", 0);
@@ -98,7 +98,7 @@ public class LocalDataManager {
                     latest = notice;
                 }
             }
-            
+
             if (latest != null) {
                 String date = latest.optString("date", "");
                 String message = latest.optString("message", "");
@@ -109,7 +109,7 @@ public class LocalDataManager {
         }
         return "No notices yet.";
     }
-    
+
     private JSONArray getNoticesArray() {
         String noticesJson = prefs.getString(KEY_NOTICES, "[]");
         try {
@@ -118,7 +118,7 @@ public class LocalDataManager {
             return new JSONArray();
         }
     }
-    
+
     public void saveStudent(String name, String password) {
         try {
             JSONArray students = getStudentsArray();
@@ -131,13 +131,13 @@ public class LocalDataManager {
             e.printStackTrace();
         }
     }
-    
+
     public boolean validateStudent(String name, String password) {
         try {
             JSONArray students = getStudentsArray();
             for (int i = 0; i < students.length(); i++) {
                 JSONObject student = students.getJSONObject(i);
-                if (student.optString("name", "").equals(name) && 
+                if (student.optString("name", "").equals(name) &&
                     student.optString("password", "").equals(password)) {
                     return true;
                 }
@@ -147,7 +147,7 @@ public class LocalDataManager {
         }
         return false;
     }
-    
+
     private JSONArray getStudentsArray() {
         String studentsJson = prefs.getString(KEY_STUDENTS, "[]");
         try {
@@ -156,7 +156,7 @@ public class LocalDataManager {
             return new JSONArray();
         }
     }
-    
+
     public void saveProfile(String name, String password, String story, String department, String userType,
                            String designation, String semester, long id) {
         try {
@@ -179,7 +179,7 @@ public class LocalDataManager {
             e.printStackTrace();
         }
     }
-    
+
     public void updateProfile(String profileKey, String name, String story) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -197,7 +197,7 @@ public class LocalDataManager {
             e.printStackTrace();
         }
     }
-    
+
     public void updateProfilePassword(String profileKey, String newPassword) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -214,7 +214,7 @@ public class LocalDataManager {
             e.printStackTrace();
         }
     }
-    
+
     public Map<String, String> validateTeacherLogin(String name, String password) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -234,7 +234,7 @@ public class LocalDataManager {
         }
         return null;
     }
-    
+
     public Map<String, String> validateStudentLogin(String name, String password) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -254,7 +254,7 @@ public class LocalDataManager {
         }
         return null;
     }
-    
+
     public Map<String, String> getProfileByKey(String profileKey) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -274,7 +274,7 @@ public class LocalDataManager {
         }
         return null;
     }
-    
+
     public String getProfilePassword(String profileKey) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -289,7 +289,7 @@ public class LocalDataManager {
         }
         return "";
     }
-    
+
     public List<Map<String, String>> getTeachersByDeptAndDesignation(String department, String designation) {
         List<Map<String, String>> result = new ArrayList<>();
         try {
@@ -311,7 +311,7 @@ public class LocalDataManager {
         }
         return result;
     }
-    
+
     public List<Map<String, String>> getStudentsByDeptAndSemester(String department, String semester) {
         List<Map<String, String>> result = new ArrayList<>();
         try {
@@ -333,7 +333,7 @@ public class LocalDataManager {
         }
         return result;
     }
-    
+
     public Map<String, String> getProfileById(String profileKey) {
         try {
             JSONArray profiles = getProfilesArray();
@@ -351,7 +351,7 @@ public class LocalDataManager {
         }
         return null;
     }
-    
+
     public void importProfiles(List<Map<String, String>> profiles) {
         try {
             JSONArray arr = new JSONArray();
@@ -386,7 +386,7 @@ public class LocalDataManager {
             return new JSONArray();
         }
     }
-    
+
     private String getConversationKey(String profileKey1, String profileKey2) {
         if (profileKey1 == null || profileKey2 == null) {
             return profileKey1 != null ? profileKey1 : (profileKey2 != null ? profileKey2 : "default");
@@ -397,7 +397,7 @@ public class LocalDataManager {
             return profileKey2 + "_" + profileKey1;
         }
     }
-    
+
     public void saveMessage(String currentUserProfileKey, String otherUserProfileKey, String sender, String message) {
         try {
             String conversationKey = getConversationKey(currentUserProfileKey, otherUserProfileKey);
@@ -431,7 +431,7 @@ public class LocalDataManager {
         }
         return result;
     }
-    
+
     private JSONArray getMessagesArray(String conversationKey) {
         String messagesJson = prefs.getString(KEY_MESSAGES + "_" + conversationKey, "[]");
         try {
@@ -440,11 +440,10 @@ public class LocalDataManager {
             return new JSONArray();
         }
     }
-    
+
     public void wipeAllData() {
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(KEY_NOTICES);
         editor.apply();
     }
 }
-

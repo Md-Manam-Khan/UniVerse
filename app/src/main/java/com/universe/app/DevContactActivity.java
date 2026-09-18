@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 public class DevContactActivity extends BaseActivity {
 
@@ -37,5 +36,3 @@ public class DevContactActivity extends BaseActivity {
         });
     }
 }
-
-

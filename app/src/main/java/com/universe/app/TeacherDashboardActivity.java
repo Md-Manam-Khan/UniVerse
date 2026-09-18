@@ -3,18 +3,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
-public class TeacherDashboardActivity extends BaseActivity 
+public class TeacherDashboardActivity extends BaseActivity
 {
     private String teacherName;
     private String profileKey;
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_dashboard);
         teacherName = getIntent().getStringExtra("teacherName");
         profileKey = getIntent().getStringExtra("profileKey");
-        if (teacherName == null) 
+        if (teacherName == null)
         {
             teacherName = "Teacher";
         }
@@ -27,7 +27,7 @@ public class TeacherDashboardActivity extends BaseActivity
         TextView messageNotificationBox = findViewById(R.id.messageNotificationBox);
         FirebaseManager firebaseManager = new FirebaseManager();
         firebaseManager.listenForLatestIncomingMessage(profileKey, teacherName, (senderName, messageText) -> {
-            if (senderName != null) 
+            if (senderName != null)
             {
                 messageNotificationBox.setVisibility(android.view.View.VISIBLE);
                 messageNotificationBox.setText(senderName + " texted you");

@@ -1,17 +1,15 @@
 package com.universe.app;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-public class TeacherSearchActivity extends BaseActivity 
+public class TeacherSearchActivity extends BaseActivity
 {
     private Spinner departmentSpinner;
     private Spinner designationSpinner;
@@ -23,13 +21,13 @@ public class TeacherSearchActivity extends BaseActivity
     private String currentUserName;
     private String currentUserProfileKey;
     @Override
-    protected void onCreate(Bundle savedInstanceState) 
+    protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_search);
         currentUserName = getIntent().getStringExtra("currentUserName");
         currentUserProfileKey = getIntent().getStringExtra("currentUserProfileKey");
-        if (currentUserName == null) 
+        if (currentUserName == null)
         {
             currentUserName = "Student";
         }
@@ -64,29 +62,29 @@ public class TeacherSearchActivity extends BaseActivity
             startActivity(intent);
         });
     }
-    private void searchTeachers() 
+    private void searchTeachers()
         firebaseManager.fetchAllProfiles(new FirebaseManager.ProfilesListener() {
             @Override
-            public void onResult(List<Map<String, String>> profiles) 
+            public void onResult(List<Map<String, String>> profiles)
             {
                 dataManager.importProfiles(profiles);
                 runSearch();
             }
             @Override
-            public void onError() 
+            public void onError()
             {
                 runSearch();
             }
         });
     }
-    private void runSearch() 
+    private void runSearch()
     {
         String department = departmentSpinner.getSelectedItem().toString();
         String designation = designationSpinner.getSelectedItem().toString();
         teacherList = dataManager.getTeachersByDeptAndDesignation(department, designation);
         List<String> names = new ArrayList<>();
         List<Map<String, String>> filteredList = new ArrayList<>();
-        for (Map<String, String> teacher : teacherList) 
+        for (Map<String, String> teacher : teacherList)
         {
             String teacherKey = teacher.get("key");
             if (currentUserProfileKey == null || !teacherKey.equals(currentUserProfileKey)) {
@@ -98,7 +96,7 @@ public class TeacherSearchActivity extends BaseActivity
         adapter.clear();
         adapter.addAll(names);
         adapter.notifyDataSetChanged();
-        if (names.isEmpty()) 
+        if (names.isEmpty())
         {
             Toast.makeText(this, "No teachers found", Toast.LENGTH_SHORT).show();
         }

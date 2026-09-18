@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,7 +82,6 @@ public class ChatActivity extends BaseActivity {
         });
     }
 
-
     private class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
         private List<Map<String, String>> messages;
 
@@ -104,13 +102,13 @@ public class ChatActivity extends BaseActivity {
             Map<String, String> message = messages.get(position);
             String sender = message.get("sender");
             boolean isCurrentUser = sender != null && sender.equals(currentUserName);
-            
+
             holder.senderTextView.setText(sender);
             holder.messageTextView.setText(message.get("message"));
-            
-            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params = 
+
+            androidx.constraintlayout.widget.ConstraintLayout.LayoutParams params =
                 (androidx.constraintlayout.widget.ConstraintLayout.LayoutParams) holder.messageBubble.getLayoutParams();
-            
+
             if (isCurrentUser) {
                 params.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
                 params.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.UNSET;
@@ -146,4 +144,3 @@ public class ChatActivity extends BaseActivity {
         }
     }
 }
-
