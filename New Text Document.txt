@@ -1,0 +1,20 @@
+Done:
+
+Intro
+variable
+output
+input
+equation
+if
+if else
+else if ladder
+
+
+Pending:
+
+for
+array
+while
+do while
+nested if else
+switch case
