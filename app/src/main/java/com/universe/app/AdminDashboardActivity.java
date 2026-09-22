@@ -45,14 +45,10 @@ public class AdminDashboardActivity extends BaseActivity
         Button addInfoButton = findViewById(R.id.addInfoButton);
         Button enterInfoButton = findViewById(R.id.enterInfoButton);
         Button wipeDataButton = findViewById(R.id.wipeDataButton);
-        ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
-                new String[]{"Teacher", "Student"});
+        ArrayAdapter<String> userTypeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"Teacher", "Student"});
         userTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userTypeSpinner.setAdapter(userTypeAdapter);
-        ArrayAdapter<String> deptAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item,
-                new String[]{"CSE", "ME", "EEE", "CE", "English", "BBA"});
+        ArrayAdapter<String> deptAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, new String[]{"CSE", "ME", "EEE", "CE", "English", "BBA"});
         deptAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         departmentSpinner.setAdapter(deptAdapter);
         userTypeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
@@ -60,17 +56,13 @@ public class AdminDashboardActivity extends BaseActivity
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0)
                 {
-                    ArrayAdapter<String> designationAdapter = new ArrayAdapter<>(AdminDashboardActivity.this,
-                            android.R.layout.simple_spinner_item,
-                            new String[]{"Professor", "Associate Professor", "Lecturer"});
+                    ArrayAdapter<String> designationAdapter = new ArrayAdapter<>(AdminDashboardActivity.this, android.R.layout.simple_spinner_item, new String[]{"Professor", "Associate Professor", "Lecturer"});
                     designationAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     designationOrSemesterSpinner.setAdapter(designationAdapter);
                 }
                 else
                 {
-                    ArrayAdapter<String> semesterAdapter = new ArrayAdapter<>(AdminDashboardActivity.this,
-                            android.R.layout.simple_spinner_item,
-                            new String[]{"1", "2", "3", "4", "5", "6", "7", "8"});
+                    ArrayAdapter<String> semesterAdapter = new ArrayAdapter<>(AdminDashboardActivity.this, android.R.layout.simple_spinner_item, new String[]{"1", "2", "3", "4", "5", "6", "7", "8"});
                     semesterAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     designationOrSemesterSpinner.setAdapter(semesterAdapter);
                 }
